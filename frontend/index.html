@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar System Mission Explorer</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Three.js for 3D visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+    <!-- Include any other dependencies -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Solar System Mission Explorer</h1>
+        <p>Visualize active space missions across our solar system</p>
+    </header>
+
+    <div class="container">
+        <div class="sidebar">
+            <div class="filter-section">
+                <h2>Filter Missions</h2>
+                <div class="filter-options">
+                    <label>
+                        <input type="checkbox" class="mission-filter" data-agency="NASA" checked> NASA
+                    </label>
+                    <label>
+                        <input type="checkbox" class="mission-filter" data-agency="ESA" checked> ESA
+                    </label>
+                    <label>
+                        <input type="checkbox" class="mission-filter" data-agency="other" checked> Other
+                    </label>
+                </div>
+            </div>
+
+            <div class="missions-section">
+                <h2>Active Missions</h2>
+                <div id="missions-list" class="missions-list">
+                    <!-- Missions will be dynamically added here -->
+                    <div class="loading">Loading missions data...</div>
+                </div>
+            </div>
+
+            <div class="mission-details" id="mission-details">
+                <h3>Select a mission to view details</h3>
+                <!-- Mission details will be shown here -->
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="visualization-container">
+                <div id="solar-system-container"></div>
+                <div class="controls">
+                    <button id="reset-view">Reset View</button>
+                    <button id="toggle-orbits">Toggle Orbits</button>
+                    <div class="zoom-controls">
+                        <button id="zoom-in">+</button>
+                        <button id="zoom-out">-</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <h3 id="info-title">Solar System Overview</h3>
+                <div id="info-content">
+                    <p>Explore active space missions across our solar system. Click on any mission or celestial body to learn more about it.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Data provided by NASA/JPL-Caltech via the JPL Horizons API</p>
+        <p>All positions and trajectories are approximations for educational purposes only</p>
+    </footer>
+
+    <!-- Templates for dynamic content -->
+    <template id="mission-item-template">
+        <div class="mission-item" data-id="">
+            <div class="mission-icon">
+                <span class="status-indicator"></span>
+            </div>
+            <div class="mission-info">
+                <h3 class="mission-name"></h3>
+                <p class="mission-agency"></p>
+            </div>
+        </div>
+    </template>
+
+    <!-- Load our JavaScript files -->
+    <script src="main.js"></script>
+</body>
+</html>
