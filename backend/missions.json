@@ -1,0 +1,201 @@
+{
+  "missions": [
+    {
+      "id": "-31",
+      "name": "Voyager 1",
+      "agency": "NASA",
+      "launch_date": "1977-09-05",
+      "status": "Active",
+      "description": "NASA's Voyager 1 is the first human-made object to venture into interstellar space. Launched in 1977, the spacecraft visited Jupiter and Saturn before continuing its journey beyond our solar system.",
+      "website": "https://voyager.jpl.nasa.gov/",
+      "image": "voyager1.jpg",
+      "milestones": [
+        {"date": "1979-03-05", "event": "Jupiter Flyby"},
+        {"date": "1980-11-12", "event": "Saturn Flyby"},
+        {"date": "2012-08-25", "event": "Entered Interstellar Space"}
+      ]
+    },
+    {
+      "id": "-32",
+      "name": "Voyager 2",
+      "agency": "NASA",
+      "launch_date": "1977-08-20",
+      "status": "Active",
+      "description": "Voyager 2 is the only spacecraft to have visited all four gas giant planets — Jupiter, Saturn, Uranus, and Neptune. It is currently exploring the outermost reaches of the heliosphere.",
+      "website": "https://voyager.jpl.nasa.gov/",
+      "image": "voyager2.jpg",
+      "milestones": [
+        {"date": "1979-07-09", "event": "Jupiter Flyby"},
+        {"date": "1981-08-25", "event": "Saturn Flyby"},
+        {"date": "1986-01-24", "event": "Uranus Flyby"},
+        {"date": "1989-08-25", "event": "Neptune Flyby"},
+        {"date": "2018-11-05", "event": "Entered Interstellar Space"}
+      ]
+    },
+    {
+      "id": "-234",
+      "name": "New Horizons",
+      "agency": "NASA",
+      "launch_date": "2006-01-19",
+      "status": "Active",
+      "description": "New Horizons is a NASA mission to study Pluto, its moons, and other objects in the Kuiper Belt. In 2015, it became the first spacecraft to visit Pluto, revealing stunning details about the dwarf planet.",
+      "website": "http://pluto.jhuapl.edu/",
+      "image": "new_horizons.jpg",
+      "milestones": [
+        {"date": "2007-02-28", "event": "Jupiter Flyby"},
+        {"date": "2015-07-14", "event": "Pluto Flyby"},
+        {"date": "2019-01-01", "event": "Arrokoth (2014 MU69) Flyby"}
+      ]
+    },
+    {
+      "id": "-98",
+      "name": "Juno",
+      "agency": "NASA",
+      "launch_date": "2011-08-05",
+      "status": "Active",
+      "description": "Juno is studying Jupiter from a polar orbit to understand the planet's origin and evolution, looking at its gravity field, magnetic field, and polar magnetosphere.",
+      "website": "https://www.nasa.gov/mission_pages/juno/main/index.html",
+      "image": "juno.jpg",
+      "milestones": [
+        {"date": "2016-07-04", "event": "Jupiter Orbit Insertion"}
+      ]
+    },
+    {
+      "id": "-170",
+      "name": "James Webb Space Telescope",
+      "agency": "NASA/ESA/CSA",
+      "launch_date": "2021-12-25",
+      "status": "Active",
+      "description": "The James Webb Space Telescope is the largest, most powerful space telescope ever built, designed to peer deeper into the universe's past than ever before.",
+      "website": "https://www.jwst.nasa.gov/",
+      "image": "jwst.jpg",
+      "milestones": [
+        {"date": "2022-01-24", "event": "Reached L2 Orbit"},
+        {"date": "2022-07-12", "event": "First Images Released"}
+      ]
+    },
+    {
+      "id": "-227",
+      "name": "DART",
+      "agency": "NASA",
+      "launch_date": "2021-11-24",
+      "status": "Mission Complete",
+      "description": "The Double Asteroid Redirection Test (DART) was a spacecraft designed to test whether a kinetic impact could deflect an asteroid. It successfully impacted the asteroid Dimorphos in 2022.",
+      "website": "https://dart.jhuapl.edu/",
+      "image": "dart.jpg",
+      "milestones": [
+        {"date": "2022-09-26", "event": "Impact with Dimorphos asteroid"}
+      ]
+    },
+    {
+      "id": "-95",
+      "name": "Parker Solar Probe",
+      "agency": "NASA",
+      "launch_date": "2018-08-12",
+      "status": "Active",
+      "description": "The Parker Solar Probe is studying the Sun's outer corona to improve our understanding of the solar wind and space weather.",
+      "website": "http://parkersolarprobe.jhuapl.edu/",
+      "image": "parker.jpg",
+      "milestones": [
+        {"date": "2018-11-05", "event": "First Perihelion"},
+        {"date": "2024-12-24", "event": "Closest Approach (planned)"}
+      ]
+    },
+    {
+      "id": "-144",
+      "name": "OSIRIS-REx",
+      "agency": "NASA",
+      "launch_date": "2016-09-08",
+      "status": "Mission Complete",
+      "description": "The OSIRIS-REx mission collected samples from the asteroid Bennu and delivered them back to Earth in 2023.",
+      "website": "https://www.nasa.gov/osiris-rex",
+      "image": "osiris_rex.jpg",
+      "milestones": [
+        {"date": "2020-10-20", "event": "Bennu Sample Collection"},
+        {"date": "2023-09-24", "event": "Sample Return to Earth"}
+      ]
+    }
+  ],
+  "celestialObjects": [
+    {
+      "id": "10",
+      "name": "Sun",
+      "type": "Star",
+      "description": "The Sun is the star at the center of our Solar System, a nearly perfect sphere of hot plasma. It is the most important source of energy for life on Earth.",
+      "diameter": 70000,
+      "distance_from_sun": 0
+    },
+    {
+      "id": "199",
+      "name": "Mercury",
+      "type": "Planet",
+      "description": "Mercury is the smallest planet in our Solar System and the closest to the Sun, with a highly eccentric orbit and very high temperatures.",
+      "diameter": 4879,
+      "distance_from_sun": 0.39
+    },
+    {
+      "id": "299",
+      "name": "Venus",
+      "type": "Planet",
+      "description": "Venus is the second planet from the Sun and Earth's closest planetary neighbor, with a thick atmosphere trapping heat in a runaway greenhouse effect.",
+      "diameter": 12104,
+      "distance_from_sun": 0.72
+    },
+    {
+      "id": "399",
+      "name": "Earth",
+      "type": "Planet",
+      "description": "Earth is the third planet from the Sun and the only known astronomical object to harbor life, with liquid water on its surface and a protective atmosphere.",
+      "diameter": 12756,
+      "distance_from_sun": 1.00
+    },
+    {
+      "id": "499",
+      "name": "Mars",
+      "type": "Planet",
+      "description": "Mars is the fourth planet from the Sun, often called the 'Red Planet' due to its reddish appearance caused by iron oxide on its surface.",
+      "diameter": 6792,
+      "distance_from_sun": 1.52
+    },
+    {
+      "id": "599",
+      "name": "Jupiter",
+      "type": "Planet",
+      "description": "Jupiter is the fifth planet from the Sun and the largest in our Solar System, composed mainly of hydrogen and helium, with distinct cloud bands and the Great Red Spot.",
+      "diameter": 80000,
+      "distance_from_sun": 5.20
+    },
+    {
+      "id": "699",
+      "name": "Saturn",
+      "type": "Planet",
+      "description": "Saturn is the sixth planet from the Sun, known for its prominent ring system made up of ice particles, rocky debris, and dust.",
+      "diameter": 70000,
+      "distance_from_sun": 9.58
+    },
+    {
+      "id": "799",
+      "name": "Uranus",
+      "type": "Planet",
+      "description": "Uranus is the seventh planet from the Sun, an ice giant with a tilted rotation axis that causes it to rotate on its side.",
+      "diameter": 51118,
+      "distance_from_sun": 19.22
+    },
+    {
+      "id": "899",
+      "name": "Neptune",
+      "type": "Planet",
+      "description": "Neptune is the eighth and farthest known planet from the Sun, a dark, cold, and windy ice giant with the strongest winds in the Solar System.",
+      "diameter": 49528,
+      "distance_from_sun": 30.05
+    },
+    {
+      "id": "9",
+      "name": "Pluto",
+      "type": "Dwarf Planet",
+      "description": "Pluto is a dwarf planet in the Kuiper belt, a ring of bodies beyond Neptune. It was discovered in 1930 and was considered the ninth planet until 2006.",
+      "diameter": 2370,
+      "distance_from_sun": 39.48
+    }
+  ]
+}
