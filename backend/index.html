@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar System Mission Explorer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Three.js for 3D visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+    <style>
+        /* Minimal styling */
+        :root {
+            --primary-color: #1e3a8a;
+            --text-color: #f3f4f6;
+            --background-color: #0f172a;
+        }
+        body {
+            font-family: 'Space Mono', monospace, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: var(--primary-color);
+            padding: 1rem;
+            text-align: center;
+        }
+        #solar-system-container {
+            width: 100%;
+            height: 80vh;
+            background-color: #070d1b;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Solar System Mission Explorer</h1>
+        <p>Visualize active space missions across our solar system</p>
+    </header>
+
+    <div id="solar-system-container"></div>
+
+    <script>
+        // Configuration
+        const API_BASE_URL = '/api';
+        const SCALE_FACTOR = 50;
+        
+        // Global variables
+        let scene, camera, renderer, controls;
+        let solarSystem;
+        
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', () => {
+            initThreeJS();
+            fetchData();
+        });
+        
+        // Initialize Three.js Scene
+        function initThreeJS() {
+            scene = new THREE.Scene();
+            
+            camera = new THREE.PerspectiveCamera(
+                60,
+                window.innerWidth / window.innerHeight,
+                0.1,
+                10000
+            );
+            camera.position.set(0, 100, 200);
+            
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.getElementById('solar-system-container').appendChild(renderer.domElement);
+            
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            
+            const ambientLight = new THREE.AmbientLight(0x404040);
+            scene.add(ambientLight);
+            
+            const sunLight = new THREE.PointLight(0xffffff, 1.5);
+            scene.add(sunLight);
+            
+            solarSystem = new THREE.Group();
+            scene.add(solarSystem);
+            
+            // Add stars
+            const starsGeometry = new THREE.BufferGeometry();
+            const starsMaterial = new THREE.PointsMaterial({
+                color: 0xFFFFFF,
+                size: 0.7,
+            });
+            
+            const starsVertices = [];
+            for (let i = 0; i < 5000; i++) {
+                const x = THREE.MathUtils.randFloatSpread(2000);
+                const y = THREE.MathUtils.randFloatSpread(2000);
+                const z = THREE.MathUtils.randFloatSpread(2000);
+                starsVertices.push(x, y, z);
+            }
+            
+            starsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starsVertices, 3));
+            const stars = new THREE.Points(starsGeometry, starsMaterial);
+            scene.add(stars);
+            
+            animate();
+        }
+        
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+        
+        // Fetch data
+        async function fetchData() {
+            try {
+                // Add the sun
+                const sunGeometry = new THREE.SphereGeometry(5, 32, 32);
+                const sunMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+                const sun = new THREE.Mesh(sunGeometry, sunMaterial);
+                solarSystem.add(sun);
+                
+                // Fetch celestial bodies
+                const response = await fetch(`${API_BASE_URL}/celestial-objects`);
+                const celestialBodies = await response.json();
+                
+                // Add celestial bodies
+                celestialBodies.forEach(body => {
+                    if (body.id !== "10") { // Skip the sun
+                        const size = Math.max(0.5, body.diameter * 0.0001);
+                        const geometry = new THREE.SphereGeometry(size, 32, 16);
+                        const material = new THREE.MeshPhongMaterial({ 
+                            color: new THREE.Color(`hsl(${body.id % 360}, 70%, 60%)`)
+                        });
+                        const bodyMesh = new THREE.Mesh(geometry, material);
+                        
+                        const distance = body.distance_from_sun * SCALE_FACTOR;
+                        bodyMesh.position.set(distance, 0, 0);
+                        
+                        solarSystem.add(bodyMesh);
+                    }
+                });
+                
+                console.log("Solar system created successfully!");
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+    </script>
+</body>
+</html> 
