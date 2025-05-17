@@ -1,0 +1,337 @@
+/* Global Styles */
+:root {
+    --primary-color: #1e3a8a;
+    --secondary-color: #2563eb;
+    --accent-color: #10b981;
+    --text-color: #f3f4f6;
+    --background-color: #0f172a;
+    --sidebar-background: #1e293b;
+    --card-background: #1f2937;
+    --border-color: #334155;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Space Mono', monospace;
+    color: #fff;
+    background-color: #000;
+    overflow: hidden;
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 10px rgba(0,0,0,0.8);
+}
+
+button {
+    cursor: pointer;
+    background-color: #4e54c8;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    font-family: 'Space Mono', monospace;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+button:hover {
+    background-color: #8f94fb;
+}
+
+/* Layout */
+header {
+    background-color: rgba(30, 58, 138, 0.9);
+    padding: 1rem 2rem;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.container {
+    display: flex;
+    height: calc(100vh - 140px);
+    width: 100%;
+    position: relative;
+}
+
+.sidebar {
+    width: 300px;
+    background-color: rgba(30, 30, 40, 0.95);
+    padding: 20px;
+    overflow-y: auto;
+    height: 100%;
+    z-index: 10;
+    box-shadow: 2px 0 15px rgba(0, 0, 0, 0.7);
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+footer {
+    background-color: rgba(30, 58, 138, 0.9);
+    padding: 1rem 2rem;
+    text-align: center;
+    font-size: 0.8rem;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Visualization Area */
+.visualization-container {
+    position: relative;
+    height: 75%;
+    width: 100%;
+}
+
+#solar-system-container {
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+}
+
+.controls {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    z-index: 10;
+    background-color: rgba(30, 30, 40, 0.9);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+.controls button {
+    background-color: #4e54c8;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: 'Space Mono', monospace;
+    transition: background-color 0.3s;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+.controls button:hover {
+    background-color: #8f94fb;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.zoom-controls {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+/* Info Panel */
+.info-panel {
+    height: 25%;
+    background-color: rgba(30, 30, 40, 0.95);
+    padding: 20px;
+    overflow-y: auto;
+    z-index: 5;
+    border-top: 1px solid #4e54c8;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.info-panel h3 {
+    color: #fff;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(0,0,0,0.8);
+}
+
+.info-panel p {
+    color: #ddd;
+    font-size: 1rem;
+    line-height: 1.6;
+    text-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+/* Mission List */
+.filter-section {
+    margin-bottom: 1.5rem;
+    background-color: rgba(40, 40, 60, 0.7);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.filter-section h2 {
+    color: #fff;
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px rgba(0,0,0,0.8);
+}
+
+.filter-options {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.filter-options label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #ddd;
+    font-weight: bold;
+}
+
+.filter-options input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+}
+
+.missions-section {
+    margin-bottom: 1.5rem;
+}
+
+.missions-section h2 {
+    color: #fff;
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px rgba(0,0,0,0.8);
+}
+
+.missions-list {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #4e54c8;
+    border-radius: 6px;
+    background-color: rgba(40, 40, 60, 0.5);
+    padding: 10px;
+}
+
+.mission-item {
+    display: flex;
+    margin-bottom: 10px;
+    padding: 12px;
+    background-color: rgba(40, 40, 60, 0.9);
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.2s;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.mission-item:hover {
+    background-color: rgba(78, 84, 200, 0.4);
+    transform: translateY(-2px);
+}
+
+.mission-item.active {
+    background-color: rgba(78, 84, 200, 0.7);
+    border-left: 4px solid #8f94fb;
+}
+
+.mission-icon {
+    width: 30px;
+    height: 30px;
+    background-color: rgba(78, 84, 200, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    box-shadow: 0 0 10px rgba(78, 84, 200, 0.5);
+}
+
+.mission-info {
+    flex: 1;
+}
+
+.mission-info h3 {
+    margin: 0 0 5px 0;
+    font-size: 16px;
+}
+
+.mission-info p {
+    margin: 0;
+    font-size: 12px;
+    color: #aaa;
+}
+
+/* Mission Details */
+.mission-details {
+    background-color: var(--card-background);
+    padding: 1rem;
+    border-radius: 4px;
+    margin-top: 1rem;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.mission-details img {
+    max-width: 100%;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+.mission-details h3 {
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.mission-milestone {
+    margin-bottom: 0.5rem;
+    padding-left: 1rem;
+    position: relative;
+}
+
+.mission-milestone::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--accent-color);
+}
+
+/* Loading State */
+.loading {
+    padding: 1rem;
+    text-align: center;
+    color: #9ca3af;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        max-height: 300px;
+    }
+
+    .controls {
+        bottom: 0.5rem;
+        right: 0.5rem;
+    }
+}
