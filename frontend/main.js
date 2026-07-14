@@ -443,6 +443,7 @@ async function fetchMissionPosition(missionId) {
             // Add to solar system
             solarSystem.add(missionObject);
             missionObjects[missionId] = missionObject;
+            missionObject.visible = getMissionView().some(item => item.id === missionId);
             
             // Fetch trajectory
             fetchMissionTrajectory(missionId);
@@ -497,42 +498,104 @@ async function fetchMissionTrajectory(missionId) {
     }
 }
 
-// Populate the missions list in the sidebar
+// Build the mission view from search, sort, and agency filters
+function selectedAgencies() {
+    return Array.from(document.querySelectorAll('.mission-filter:checked'))
+        .map(checkbox => checkbox.dataset.agency);
+}
+
+function missionMatchesAgency(mission, agencies) {
+    return agencies.some(agency => {
+        if (agency === 'other') {
+            return !mission.agency.includes('NASA') && !mission.agency.includes('ESA');
+        }
+        return mission.agency.includes(agency);
+    });
+}
+
+function getMissionView() {
+    const query = document.getElementById('mission-search').value.trim().toLowerCase();
+    const sort = document.getElementById('mission-sort').value;
+    const agencies = selectedAgencies();
+
+    const view = missions.filter(mission => {
+        if (mission.status !== 'Active' || !missionMatchesAgency(mission, agencies)) {
+            return false;
+        }
+        const searchable = `${mission.name} ${mission.agency} ${mission.description}`.toLowerCase();
+        return !query || searchable.includes(query);
+    });
+
+    view.sort((a, b) => {
+        if (sort === 'newest') return b.launch_date.localeCompare(a.launch_date);
+        if (sort === 'oldest') return a.launch_date.localeCompare(b.launch_date);
+        return a.name.localeCompare(b.name);
+    });
+    return view;
+}
+
+function renderMissionSummary(view) {
+    const years = view
+        .map(mission => Number(mission.launch_date.slice(0, 4)))
+        .filter(Number.isFinite);
+    const agencies = new Set(view.map(mission => mission.agency));
+
+    document.getElementById('active-count').textContent = view.length;
+    document.getElementById('agency-count').textContent = agencies.size;
+    document.getElementById('launch-span').textContent = years.length
+        ? `${Math.min(...years)}–${Math.max(...years)}`
+        : '—';
+}
+
+function updateMissionVisibility(view) {
+    const visibleIds = new Set(view.map(mission => mission.id));
+    missions.forEach(mission => {
+        const missionObject = missionObjects[mission.id];
+        if (missionObject) {
+            missionObject.visible = visibleIds.has(mission.id);
+        }
+    });
+}
+
+// Populate the searchable mission list and summary
 function populateMissionsList() {
     const missionsList = document.getElementById('missions-list');
+    const view = getMissionView();
     missionsList.innerHTML = '';
-    
+    renderMissionSummary(view);
+
     if (missions.length === 0) {
         missionsList.innerHTML = '<div class="error">No missions found.</div>';
         return;
     }
-    
-    // Get the mission item template
+
+    if (view.length === 0) {
+        missionsList.innerHTML = '<div class="empty-state">No active missions match these filters. Try another search or agency.</div>';
+        updateMissionVisibility(view);
+        return;
+    }
+
     const template = document.getElementById('mission-item-template');
-    
-    missions.forEach(mission => {
-        if (mission.status === "Active") {
-            // Clone the template
-            const clone = document.importNode(template.content, true);
-            
-            // Set the mission data
-            const missionItem = clone.querySelector('.mission-item');
-            missionItem.dataset.id = mission.id;
-            
-            const missionName = clone.querySelector('.mission-name');
-            missionName.textContent = mission.name;
-            
-            const missionAgency = clone.querySelector('.mission-agency');
-            missionAgency.textContent = mission.agency;
-            
-            // Add click event
-            missionItem.addEventListener('click', () => {
-                selectMission(mission.id);
-            });
-            
-            missionsList.appendChild(clone);
+    view.forEach(mission => {
+        const clone = document.importNode(template.content, true);
+        const missionItem = clone.querySelector('.mission-item');
+        missionItem.dataset.id = mission.id;
+
+        clone.querySelector('.mission-name').textContent = mission.name;
+        clone.querySelector('.mission-agency').textContent =
+            `${mission.agency} · launched ${mission.launch_date.slice(0, 4)}`;
+
+        if (selectedMission?.id === mission.id) {
+            missionItem.classList.add('active');
         }
+
+        missionItem.addEventListener('click', () => {
+            selectMission(mission.id);
+        });
+        missionsList.appendChild(clone);
     });
+
+    updateMissionVisibility(view);
 }
 
 // Select a mission and show its details
@@ -628,20 +691,18 @@ function showMissionDetails(mission) {
 
 // Setup event listeners
 function setupEventListeners() {
-    // Filter missions by agency
-    const filterCheckboxes = document.querySelectorAll('.mission-filter');
-    filterCheckboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', filterMissions);
+    document.querySelectorAll('.mission-filter').forEach(checkbox => {
+        checkbox.addEventListener('change', populateMissionsList);
     });
-    
-    // Reset view button
+    document.getElementById('mission-search').addEventListener('input', populateMissionsList);
+    document.getElementById('mission-sort').addEventListener('change', populateMissionsList);
+
     document.getElementById('reset-view').addEventListener('click', () => {
         camera.position.set(0, 100, 200);
         controls.target.set(0, 0, 0);
         controls.update();
     });
-    
-    // Toggle orbits button
+
     document.getElementById('toggle-orbits').addEventListener('click', () => {
         showOrbits = !showOrbits;
         scene.traverse(object => {
@@ -650,66 +711,15 @@ function setupEventListeners() {
             }
         });
     });
-    
-    // Zoom controls
+
     document.getElementById('zoom-in').addEventListener('click', () => {
         camera.position.multiplyScalar(0.8);
         controls.update();
     });
-    
+
     document.getElementById('zoom-out').addEventListener('click', () => {
         camera.position.multiplyScalar(1.2);
         controls.update();
-    });
-}
-
-// Filter missions by agency
-function filterMissions() {
-    const activeAgencies = [];
-    const filterCheckboxes = document.querySelectorAll('.mission-filter');
-    
-    // Collect active filters
-    filterCheckboxes.forEach(checkbox => {
-        if (checkbox.checked) {
-            activeAgencies.push(checkbox.dataset.agency);
-        }
-    });
-    
-    // Apply filters to mission list
-    const missionItems = document.querySelectorAll('.mission-item');
-    missionItems.forEach(item => {
-        const missionId = item.dataset.id;
-        const mission = missions.find(m => m.id === missionId);
-        
-        if (mission) {
-            const agency = mission.agency;
-            // Check if the mission agency is in the active filters
-            // For combined agencies like NASA/ESA, check if any part matches
-            const shouldShow = activeAgencies.some(activeAgency => {
-                if (activeAgency === 'other') {
-                    return !agency.includes('NASA') && !agency.includes('ESA');
-                }
-                return agency.includes(activeAgency);
-            });
-            
-            item.style.display = shouldShow ? 'flex' : 'none';
-        }
-    });
-    
-    // Update mission object visibility in the visualization
-    missions.forEach(mission => {
-        const missionObject = missionObjects[mission.id];
-        if (missionObject) {
-            const agency = mission.agency;
-            const shouldShow = activeAgencies.some(activeAgency => {
-                if (activeAgency === 'other') {
-                    return !agency.includes('NASA') && !agency.includes('ESA');
-                }
-                return agency.includes(activeAgency);
-            });
-            
-            missionObject.visible = shouldShow;
-        }
     });
 }
 
