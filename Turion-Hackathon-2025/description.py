@@ -22,9 +22,10 @@ text_value = response.content.decode('utf-8')[:5000]
 
 
 def generate():
-    client = genai.Client(
-        api_key= "AIzaSyCDiEKp53KRjGex57UjfRkCxp-cPZMN-o0"
-    )
+    api_key = os.environ.get("GEMINI_API_KEY")
+    if not api_key:
+        raise RuntimeError("GEMINI_API_KEY is required to generate mission summaries.")
+    client = genai.Client(api_key=api_key)
 
     model = "gemini-2.5-flash-preview-04-17"
     contents = [
