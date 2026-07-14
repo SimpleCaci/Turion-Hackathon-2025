@@ -19,9 +19,34 @@
 
     <div class="container">
         <div class="sidebar">
+            <section class="mission-summary" aria-label="Mission dataset summary">
+                <div class="summary-card">
+                    <strong id="active-count">—</strong>
+                    <span>active missions</span>
+                </div>
+                <div class="summary-card">
+                    <strong id="agency-count">—</strong>
+                    <span>agency groups</span>
+                </div>
+                <div class="summary-card">
+                    <strong id="launch-span">—</strong>
+                    <span>launch span</span>
+                </div>
+            </section>
+
             <div class="filter-section">
-                <h2>Filter Missions</h2>
-                <div class="filter-options">
+                <h2>Find a Mission</h2>
+                <div class="mission-query">
+                    <label for="mission-search">Search by mission or agency</label>
+                    <input id="mission-search" type="search" placeholder="Try Voyager or ESA">
+                    <label for="mission-sort">Sort missions</label>
+                    <select id="mission-sort">
+                        <option value="name">Name A–Z</option>
+                        <option value="newest">Newest launch</option>
+                        <option value="oldest">Oldest launch</option>
+                    </select>
+                </div>
+                <div class="filter-options" aria-label="Filter by agency">
                     <label>
                         <input type="checkbox" class="mission-filter" data-agency="NASA" checked> NASA
                     </label>
