@@ -1,3 +1,4 @@
+import os
 import requests
 from urllib.parse import quote
 from datetime import datetime
@@ -30,7 +31,10 @@ def generate(input_space):
         'utf-8')[:4000]  # Limit size for LLM input
 
     # Initialize Gemini client
-    client = genai.Client(api_key="AIzaSyCDiEKp53KRjGex57UjfRkCxp-cPZMN-o0")
+    api_key = os.environ.get("GEMINI_API_KEY")
+    if not api_key:
+        raise RuntimeError("GEMINI_API_KEY is required to generate mission summaries.")
+    client = genai.Client(api_key=api_key)
     model = "gemini-2.5-flash-preview-04-17"
 
     # Prepare prompt content
