@@ -13,7 +13,7 @@ This project was built for the Turion Hackathon 2025. The idea is to make real m
 - generates dark-theme 3D trajectory plots with Matplotlib
 - serves plots and mission search through a Flask interface
 - optionally asks Gemini to summarize mission background and significance
-- includes an additional Three.js frontend/backend experiment for interactive exploration
+- includes a Three.js mission explorer with searchable agency filters, launch sorting, and live dataset summaries
 
 ## Demo
 
@@ -43,7 +43,7 @@ mission search
                               Flask interface
 ```
 
-The main maintained prototype is in `Turion-Hackathon-2025/`. The root `backend/` and `frontend/` folders contain a separate interactive visualization experiment and are not required to run the Flask application.
+The trajectory workflow is in `Turion-Hackathon-2025/`. The root `backend/` and `frontend/` folders form a separate interactive mission explorer with a searchable mission intelligence sidebar and simplified 3D positions.
 
 ## Setup
 
@@ -106,6 +106,24 @@ python main.py
 
 Open [http://localhost:3000](http://localhost:3000), search for a mission, and wait while the application retrieves and plots remote ephemeris data.
 
+### Run the interactive mission explorer
+
+Start its API from the repository root:
+
+```bash
+cd backend
+python main.py
+```
+
+In a second terminal, serve the browser files:
+
+```bash
+cd frontend
+python -m http.server 8000
+```
+
+Open [http://localhost:8000](http://localhost:8000). The sidebar summarizes the currently visible active missions and supports free-text search, agency filters, and launch-date sorting.
+
 ## Validation
 
 No reliable automated test suite currently exists. `test_turion.py` is an exploratory script that performs network and Gemini calls; it should not yet be treated as a deterministic test.
@@ -129,7 +147,7 @@ An API credential was previously embedded in repository source. The improvement 
 - mission identification still relies on JPL-compatible search values
 - generated plots are static rather than truly interactive
 - some fallback dates and broad exception handling remain from the hackathon
-- the Three.js prototype uses simplified mission positioning in several places
+- the Three.js explorer uses simplified mission positioning in several places
 - network errors need clearer user-facing states
 
 ## Roadmap
@@ -137,7 +155,7 @@ An API credential was previously embedded in repository source. The improvement 
 - add deterministic tests for parsing Horizons responses
 - cache remote responses and avoid repeating expensive queries
 - validate mission input before generating a plot
-- unify the Flask and Three.js prototypes around one API
+- unify the trajectory and Three.js experiences around one API
 - add loading, empty, and actionable error states
 - capture a short, current demo after end-to-end validation
 
