@@ -335,3 +335,94 @@ footer {
         right: 0.5rem;
     }
 }
+
+
+/* Mission intelligence controls */
+.mission-summary {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin-bottom: 1rem;
+}
+
+.summary-card {
+    min-width: 0;
+    padding: 12px 10px;
+    border: 1px solid rgba(143, 148, 251, 0.35);
+    border-radius: 8px;
+    background: linear-gradient(145deg, rgba(78, 84, 200, 0.35), rgba(24, 24, 43, 0.78));
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+}
+
+.summary-card strong {
+    display: block;
+    color: #ffffff;
+    font-size: 1.2rem;
+    line-height: 1.1;
+}
+
+.summary-card span {
+    display: block;
+    margin-top: 5px;
+    color: #b8baf1;
+    font-size: 0.68rem;
+    line-height: 1.25;
+}
+
+.mission-query {
+    display: grid;
+    gap: 7px;
+    margin-bottom: 14px;
+}
+
+.mission-query label {
+    color: #c9caff;
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.mission-query input,
+.mission-query select {
+    width: 100%;
+    min-height: 40px;
+    padding: 9px 11px;
+    color: #ffffff;
+    border: 1px solid rgba(143, 148, 251, 0.55);
+    border-radius: 6px;
+    background: rgba(17, 17, 34, 0.82);
+    font: inherit;
+}
+
+.mission-query input:focus-visible,
+.mission-query select:focus-visible {
+    outline: 2px solid #8f94fb;
+    outline-offset: 2px;
+}
+
+.mission-query input::placeholder {
+    color: #8e90ad;
+}
+
+.filter-options {
+    flex-wrap: wrap;
+}
+
+.empty-state {
+    padding: 18px 12px;
+    color: #b8baf1;
+    line-height: 1.5;
+    text-align: center;
+}
+
+@media (max-width: 560px) {
+    .mission-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .summary-card {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+    }
+}
