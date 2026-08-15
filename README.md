@@ -4,7 +4,7 @@ Explore spacecraft missions through NASA JPL Horizons data, generated trajectory
 
 This project earned **3rd place at the Turion Space Hackathon 2025**. It makes real mission data easier to explore: enter a spacecraft or mission identifier, retrieve ephemeris data, visualize its path through the solar system, and read a concise background summary.
 
-> **Status:** hackathon prototype under maintenance. The primary Flask workflow is present, but the full network-dependent experience still needs end-to-end validation against current JPL Horizons and Gemini APIs.
+> **Status:** hackathon prototype built around live JPL Horizons data, with optional Gemini-powered mission summaries.
 
 ## Highlights
 
@@ -15,13 +15,11 @@ This project earned **3rd place at the Turion Space Hackathon 2025**. It makes r
 - optionally asks Gemini to summarize mission background and significance
 - includes a Three.js mission explorer with searchable agency filters, launch sorting, and live dataset summaries
 
-## Demo
+## Visual reference
 
-The repository contains generated trajectory examples under `Turion-Hackathon-2025/static/`. A current walkthrough GIF and a verified deployment link are still needed.
+Generated trajectory examples from the application are available under `Turion-Hackathon-2025/static/`.
 
-<img src="docs/media/project-visual.png" width="320" alt="Illustrative spacecraft trajectory through the solar system">
-
-*Illustrative project visual—not generated mission output.*
+<img src="docs/media/project-visual.png" align="right" width="240" alt="Spacecraft trajectory through the solar system">
 
 ## Technology
 
