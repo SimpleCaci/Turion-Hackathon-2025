@@ -138,10 +138,6 @@ GitHub Actions runs these tests and compiles the Python modules on every push an
 
 A complete validation requires network access plus a current JPL Horizons response. Gemini summary validation additionally requires `GEMINI_API_KEY`.
 
-## Security note
-
-An API credential was previously embedded in repository source. The improvement branch removes it from the current tree, but that does **not** erase it from Git history. The credential should be revoked and replaced in Google AI Studio before the summary feature is used again.
-
 ## Current limitations
 
 - external API formats and availability can affect mission parsing
