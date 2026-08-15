@@ -2,7 +2,7 @@
 
 Explore spacecraft missions through NASA JPL Horizons data, generated trajectory plots, and optional Gemini-powered mission summaries.
 
-This project was built for the Turion Hackathon 2025. The idea is to make real mission data easier to explore: enter a spacecraft or mission identifier, retrieve ephemeris data, visualize its path through the solar system, and read a concise background summary.
+This project earned **3rd place at the Turion Space Hackathon 2025**. It makes real mission data easier to explore: enter a spacecraft or mission identifier, retrieve ephemeris data, visualize its path through the solar system, and read a concise background summary.
 
 > **Status:** hackathon prototype under maintenance. The primary Flask workflow is present, but the full network-dependent experience still needs end-to-end validation against current JPL Horizons and Gemini APIs.
 
@@ -126,14 +126,13 @@ Open [http://localhost:8000](http://localhost:8000). The sidebar summarizes the 
 
 ## Validation
 
-No reliable automated test suite currently exists. `test_turion.py` is an exploratory script that performs network and Gemini calls; it should not yet be treated as a deterministic test.
-
-Useful checks after installation:
+Deterministic tests cover mission-range parsing, date normalization, duplicate removal, and parser state reset. They do not make network or Gemini calls:
 
 ```bash
-python -m compileall .
-python main.py
+python -m unittest discover -s tests -v
 ```
+
+GitHub Actions runs these tests and compiles the Python modules on every push and pull request. `test_turion.py` remains an exploratory network script and is not part of the deterministic suite.
 
 A complete validation requires network access plus a current JPL Horizons response. Gemini summary validation additionally requires `GEMINI_API_KEY`.
 
@@ -152,7 +151,6 @@ An API credential was previously embedded in repository source. The improvement 
 
 ## Roadmap
 
-- add deterministic tests for parsing Horizons responses
 - cache remote responses and avoid repeating expensive queries
 - validate mission input before generating a plot
 - unify the trajectory and Three.js experiences around one API
