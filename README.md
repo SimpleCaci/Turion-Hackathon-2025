@@ -19,6 +19,10 @@ This project earned **3rd place at the Turion Space Hackathon 2025**. It makes r
 
 The repository contains generated trajectory examples under `Turion-Hackathon-2025/static/`. A current walkthrough GIF and a verified deployment link are still needed.
 
+<img src="docs/media/project-visual.png" width="320" alt="Illustrative spacecraft trajectory through the solar system">
+
+*Illustrative project visual—not generated mission output.*
+
 ## Technology
 
 - Python 3.11+
